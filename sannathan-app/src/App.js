@@ -6,7 +6,7 @@ import { useState, createContext } from "react";
 export const AppContext = createContext(null);
 
 function App() {
-  const [PatientDetails, setPatientDetails] = useState();
+  // const [PatientDetails, setPatientDetails] = useState();
   // function handleSave(newCourse) {
   //   setPatientDetails([...PatientDetails, newPatientDetails]);
   // }
@@ -16,11 +16,13 @@ function App() {
         <AppContext.Provider
           value={{
             // handleSave,
-            PatientDetails,
-            setPatientDetails,
+            // PatientDetails,
+            // setPatientDetails,
           }}
-        ></AppContext.Provider>
+        >
         <Appointment />
+
+        </AppContext.Provider>
       </div>
     </section>
   );
