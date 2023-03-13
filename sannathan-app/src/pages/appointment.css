@@ -100,3 +100,7 @@ div.container {
 .btn.btn-success view {
     padding-right: 50px;
 }
+/* alert */
+.valid {
+    color: red;
+}
