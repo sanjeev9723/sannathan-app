@@ -1,52 +1,68 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Popup from "./Popup";
 // import { AppContext } from '../App';
 import validate from "./validate";
+import PopupDetails from "./PopupDetails";
+import Inputbox from "../components/inputbox";
+import Select from "../components/controls/Select";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-function PatientDetails({ onSubmit, handelClick }) {
-  // const [name, setName] = useState("");
-  // const [date, setDate] = useState("");
-  // const [age, setAge] = useState("");
-  // const [gender, setGender] = useState("");
-  // const [Preference, setPreferencee] = useState("");
-  // const [contact, setContact] = useState("");
-  // const [whatsappNumber, setWhatsappNumber] = useState("");
-  // const [address, setAddress] = useState("");
-
-  // const [opDetails, setOpDetails] = useState();
-
-  // function handleSbumit(e) {
-  //   e.preventDefault();
-
-  //   onSubmit({ id: Math.round(Math.random() * 999), name: name });
-  //   console.log("submit");
-
-  // }
-
+function PatientDetails({ onSubmit, handelClick, patients,values, setValues }) {
   // -----new form validation------>>>>
-  const initialvalues = {
-    name: "",
-    date: "",
-    age: "",
-    contact: "",
-    whatsappnumber: "",
-    address: "",
-  };
-  const [formValues, setFormValues] = useState(initialvalues);
+  // const initialvalues = {
+  //   name: "",
+  //   date: "",
+  //   age: "",
+  //   contact: "",
+  //   whatsappnumber: "",
+  //   address: "",
+  // };
+  // const [formValues, setFormValues] = useState(initialvalues);
   const [formErrors, setFormErrors] = useState({});
+  // const [isSubmit, setIsSubmit] = useState(false);
 
+  const [buttonPopup, setButtonPopup] = useState(false);
+
+
+  
   const handleChange = (e) => {
     // console.log(e.target);
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-    console.log(formValues);
+    setValues({ ...values, [name]: value });
+    console.log(values);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setFormErrors(validate(formValues));
-    if (!formValues.name || !formValues.contact ) return;
-    onSubmit({ id: Math.round(Math.random() * 999), name: formValues.name });
+    setFormErrors(
+      validate(
+        values
+        //     fetch("http://localhost:8000/profile", {
+        //     method: "POST",
+        //     headers: { 'content-type': 'application/json' },
+        //     body: JSON.stringify(formValues)
+        // }).then ((res) => {
+        //   return
+        //  res.json(initialvalues)
+        // })
+      )
+    );
+    // if (validate ()) {
+    //   //console.log(regobj);
+    //   fetch("http://localhost:8000/user", {
+    //       method: "POST",
+    //       headers: { 'content-type': 'application/json' },
+    //       body: JSON.stringify(formValues)
+    //   })}
+    if (!values.name || !values.contact) return;
+    onSubmit({
+      id: Math.round(Math.random() * 999),
+      name: values.name,
+      age: values.age,
+      contact: values.contact,
+    });
     console.log("submit");
   };
   // useEffect(() => {
@@ -54,34 +70,14 @@ function PatientDetails({ onSubmit, handelClick }) {
   //   if (Object.keys(formErrors).length === 0 && isSubmit) {
   //     console.log(formValues);
   //   }
-  //   if ( onSubmit({id:Math.round(Math.random() * 999),name:formValues.name})) {
+  //   if (!formValues.name || !formValues.contact) return;
+  //   onSubmit({ id: Math.round(Math.random() * 999), name: formValues.name });
+  //   console.log("submit");
 
-  //   }
   // }, [formErrors]);
 
-  // const validate = (values) => {
-  //   const errors = {};
-  //   // const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-  //   if (!values.name) {
-  //     errors.name = "name is required!";
-  //   }
-  //   if (!values.date) {
-  //     errors.date = "Email is required!";
-  //   }
-  //   if (!values.age) {
-  //     errors.age ="Age is required";
-  //   }
-  //   if (!values.contact) {
-  //     errors.contact ="Contact number is required"
-  //   }
-  //   if (!values.whatsappnumber) {
-  //     errors.whatsappnumber ="whatsappnumber number is required"
-  //   }
-  //   if (!values.address) {
-  //     errors.address ="Address is required"
-  //   }
-  //   return errors;
-  // };
+
+
 
   return (
     <div>
@@ -100,119 +96,128 @@ function PatientDetails({ onSubmit, handelClick }) {
           <button
             className="btn btn-success"
             type="submit"
+            
             onClick={handelClick}
           >
             Save
           </button>
         </div>
+        {/* <button onClick={() => setButtonPopup(true)}>POpup</button> */}
+        <Popup
+          className="pop-head"
+          trigger={buttonPopup}
+          setTrigger={setButtonPopup}
+        >
+          Registration Completed
+          <PopupDetails patients={patients} />
+        </Popup>
 
         <div className="col-12">
-          <label for="name" className="form-label">
-            Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            id="inputName"
-            value={formValues.name}
-            onChange={handleChange}
-            // required
+          <Inputbox
+            label={"Date"}
+            type={"date"}
+            initialValue={""}
+            
+            
+            change={(e) => console.log(e)}
+          />
+
+          {/* <DatePicker
+          selected={selectedDate}
+          onChange={date => setSelectedDate(date)}
+          dateFormat = 'dd/MM/yyyy'
+
+          /> */}
+
+          <p className="valid">{formErrors.date}</p>
+        </div>
+        <div className="col-12">
+          <Inputbox
+            label={"Name"}
+            type={"text"}
+            initialValue={""}
+            
+            change={(e) => console.log(e)}
           />
         </div>
         <p className="valid">{formErrors.name}</p>
-        <div className="col-12">
-          <label className="form-label">Date</label>
-          <input
-            type="date"
-            className="form-control"
-            name="date"
-            id="inputDate"
-            onChange={handleChange}
-            value={formValues.date}
-          />
-          <p className="valid">{formErrors.date}</p>
-        </div>
 
         <div className="col-12">
-          <label for="inputAge" className="form-label">
-            Age
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="inputAge"
-            name="age"
-            value={formValues.age}
-            onChange={handleChange}
+          <Inputbox
+            label={"Age"}
+            type ={"number"}
+            initialValue={""}
+            
+           
+
+            change={(e) => console.log(e)}
           />
         </div>
         <p className="valid">{formErrors.age}</p>
 
         <div className="col-6">
-          <label for="inputState" className="form-label">
+          {/* <label for="inputState" className="form-label">
             Gender
           </label>
           <select id="inputGender" className="form-select">
             <option selected>Choose...</option>
             <option>Male</option>
             <option>Female</option>
-          </select>
+          </select> */}
+          < Select 
+           label={"Gender"}
+          inputArry = { [
+            { label: "Male", value: "Male" },
+        
+            { label: "Female", value: "Female" },
+          ]}
+          
+          
+
+          />
+
         </div>
-        {/* <div className="col-md-6">
-                              <label for="inputWeight" className="form-label">Weight</label>
-                              <input type="number" className="form-control" id="inputWeight"/>
-                            </div> */}
+
         <div className="col-md-6">
-          <label for="inputPreference" className="form-label">
+          {/* <label for="inputPreference" className="form-label">
             Preference
           </label>
           <select id="inputPreference" className="form-select">
             <option selected>Choose...</option>
             <option>...</option>
-          </select>
+          </select> */}
+          < Select 
+           label={"Preference"}
+          
+
+          />
         </div>
         <div className="col-md-12">
-          <label for="phone" className="form-label">
-            Contact
-          </label>
-          <input
-            type="tel"
-            className="form-control"
-            id="phone"
-            name="contact"
-            value={formValues.contact}
-            onChange={handleChange}
+          <Inputbox
+            label={"contact"}
+            type={"contact"}
+            initialValue={"+91"}
+            change={(e) => console.log(e)}
           />
         </div>
         <p className="valid">{formErrors.contact}</p>
 
         <div className="col-md-12">
-          <label for="phone" className="form-label">
-            WhatsappNumber
-          </label>
-          <input
-            type="tel"
-            className="form-control"
-            id="phone"
-            name="whatsappnumber"
-            value={formValues.whatsappnumber}
-            onChange={handleChange}
+          <Inputbox
+            label={"WhatsappNumber"}
+            type={"contact"}
+            initialValue={""}
+            change={(e) => console.log(e)}
           />
         </div>
         <p className="valid">{formErrors.whatsappnumber}</p>
 
         <div className="col-12">
-          <label for="inputAddress" className="form-label">
-            Address
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputAddress"
-            name="address"
-            value={formValues.address}
-            onChange={handleChange}
+          <Inputbox
+            label={"Address"}
+            type={"text"}
+            initialValue={""}
+            change={(e) => console.log(e)}
           />
         </div>
         <p className="valid">{formErrors.address}</p>

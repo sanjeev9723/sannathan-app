@@ -1,5 +1,24 @@
-div.container {
+.{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    height: 100%;
+}
+.row.main {
+    height: 100%;
+    /* border: 1px solid black; */
+
+     
+    overflow: hidden;
+    /* display: block; */
+    /* position: absolute; */
+    width: 100%;
+}
+.container {
     border: 1px solid black;
+
 }
 
 .bg {
@@ -75,6 +94,12 @@ div.container {
 .reg-count {
     background-color: #315610;
     border-radius: 5px;
+    position: relative;
+    text-align: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+    color: white;
 }
 
 .check-count {
@@ -100,7 +125,9 @@ div.container {
 .btn.btn-success view {
     padding-right: 50px;
 }
-/* alert */
+
+
 .valid {
     color: red;
 }
+/* popup */

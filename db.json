@@ -1,0 +1,24 @@
+{
+
+  "users": [
+    {
+    "name": "SanjeevKumar",
+    "date": "2023-03-14",
+    "age": "23",
+    "contact": "8667716561",
+    "whatsappnumber": "8667716561",
+    "address": "sss"
+    },  
+
+    {
+      "name": "Kumar",
+      "date": "2023-03-14",
+      "age": "23",
+      "contact": "8667716561",
+      "whatsappnumber": "8667716561",
+      "address": "sss"
+    },
+  
+  
+]
+}

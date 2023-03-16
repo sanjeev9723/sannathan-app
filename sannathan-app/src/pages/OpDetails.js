@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { AppContext } from "../App";
 
-function OpDetails({ patients,count}) {
+function OpDetails({ patients, count }) {
   console.log(patients);
   // const [count, setCount] = useState(0);
-
 
   return (
     <div>
@@ -12,8 +11,7 @@ function OpDetails({ patients,count}) {
         <div className="col-sm-6">
           <label for="fname">Reg.Count</label>
           <div className="reg-count">{count}</div>
-          <h1>
-            </h1>
+          <h1></h1>
           {/* <input className="reg-count" type="text" id="count" maxlength="4" size="4"
                   value={count}     /> */}
         </div>
@@ -67,7 +65,9 @@ function OpDetails({ patients,count}) {
           </button>
         </div>
       </div>
+      
     </div>
+    
   );
 }
 
